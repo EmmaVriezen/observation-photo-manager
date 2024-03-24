@@ -1,16 +1,28 @@
-# Tauri + Vue 3 + TypeScript
+# Observation Photo Manager
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+After a hike, you might come home with dozens, if not hundres of photo's of plants and insects. A good citizen scientist uploads them to a nature observation platform (waarneming.nl, observation.org, inaturalist.org).
 
-## Recommended IDE Setup
+But the insects are tiny and your pictures large.
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+Cropping them one by one with default Windows Photos, then saving these crops manually into another folder, and upload them one by one?
 
-## Type Support For `.vue` Imports in TS
+No more. At least, that is the goal of this project.
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+## Minimal requirements:
 
-1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
+- A functional app
+- Import a selection of photos
+- Go by the photos one by one
+- Convenient cropping
+- Storing the crops into a folder
 
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+## Future ideas:
+
+- Editing meta data of photo's
+- Linking the cropped photo's to their original counterparts
+- Automatically matching observations from the web to your pictures (based on time)
+- Saving the crop dimensions and location so they can be applied retrospectively on the original, HD image
+- ... and more? Who knows.
+
+## Final note
+This is my first real project. Hopefully I will manage to make something that will make my life a little bit easier!
