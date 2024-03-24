@@ -1,9 +1,11 @@
 [package]
-name = "tauri-app"
+name = "observation-photo-manager"
 version = "0.0.0"
-description = "A Tauri App"
-authors = ["you"]
+description = "App for managing photos of observations"
+authors = ["Emma Vriezen"]
 edition = "2021"
+repository = "https://github.com/EmmaVriezen/observation-photo-manager"
+build = "build.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
