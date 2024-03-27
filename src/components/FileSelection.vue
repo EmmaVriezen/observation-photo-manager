@@ -1,18 +1,15 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { open } from '@tauri-apps/api/dialog'
 
+const props = defineProps(['numberOfFiles'])
 const emit = defineEmits(['setFileSelection'])
 
-const selectedFiles = ref<string[]>([])
-
-const fileCount = computed(() => selectedFiles.value.length)
-
 const fileSelectionButtonLabel = computed(() => {
-  if (fileCount.value === 1) {
-    return fileCount.value + ' file selected'
-  } else if (fileCount.value > 1) {
-    return fileCount.value + ' files selected'
+  if (props.numberOfFiles === 1) {
+    return props.numberOfFiles + ' file selected'
+  } else if (props.numberOfFiles > 1) {
+    return props.numberOfFiles + ' files selected'
   } else {
     return 'Select files...'
   }
@@ -27,19 +24,17 @@ const selectImages = async (): Promise<void> => {
     }]
   })
   if (Array.isArray(selection)) {
-    selectedFiles.value = selection
     emit('setFileSelection', selection)
   } else if (selection === null) {
-    selectedFiles.value = []
     emit('setFileSelection', [])
   } else {
-    selectedFiles.value = [selection]
     emit('setFileSelection', [selection])
   }
 }
 </script>
 
 <template>
-  <button type="button" @click="selectImages">{{ fileSelectionButtonLabel }}</button>
-  <p>{{ selectedFiles }}</p>
+  <button type="button" @click="selectImages">
+    {{ fileSelectionButtonLabel }}
+  </button>
 </template>

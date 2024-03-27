@@ -6,16 +6,18 @@ import { ref } from 'vue'
 const saveDir = ref('')
 const selectedFiles = ref<string[]>([])
 
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 </script>
 
 <template>
   <div class="container">
     <h1>Observation Photo Manager</h1>
-    <FileSelection @set-file-selection="(arr) => selectedFiles = arr"/>
-    <FolderSelection @set-folder="(str) => saveDir = str">
-      {{ saveDir === '' ? 'Select folder...' : saveDir }}
+    <FileSelection
+      :numberOfFiles="selectedFiles.length"
+      @set-file-selection="(arr) => selectedFiles = arr"/>
+    <FolderSelection
+      :selectedFolder="saveDir"
+      @set-folder="(str) => saveDir = str">
     </FolderSelection>
+    <p>{{ selectedFiles }}</p>
   </div>
 </template>
