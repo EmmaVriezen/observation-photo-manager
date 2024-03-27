@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import FileSelection from './components/FileSelection.vue'
 import FolderSelection from './components/FolderSelection.vue'
+import ImageDisplay from './components/ImageDisplay.vue'
 import { ref } from 'vue'
 
 const saveDir = ref('')
@@ -16,10 +17,9 @@ const selectedFiles = ref<string[]>([])
       @set-file-selection="(arr) => selectedFiles = arr"/>
     <FolderSelection
       :selectedFolder="saveDir"
-      @set-folder="(str) => saveDir = str">
-    </FolderSelection>
-    <li v-for="file in selectedFiles" :key="file">
-      {{ file }}
-    </li>
+      @set-folder="(str) => saveDir = str"/>
+    <div v-for="file in selectedFiles" :key="file">
+      <ImageDisplay :path="file"/>
+    </div>
   </div>
 </template>
