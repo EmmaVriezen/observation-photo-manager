@@ -1,35 +1,35 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
-import { open } from '@tauri-apps/api/dialog';
+import { ref, computed } from 'vue'
+import { open } from '@tauri-apps/api/dialog'
 
-const selectedFiles = ref<String[]>([]);
+const selectedFiles = ref<string[]>([])
 
-const fileCount = computed(() => selectedFiles.value.length);
+const fileCount = computed(() => selectedFiles.value.length)
 
 const fileSelectionButtonLabel = computed(() => {
   if (fileCount.value === 1) {
-    return fileCount.value + " file selected";
-  } else if (fileCount.value) {
-    return fileCount.value + " files selected";
+    return fileCount.value + ' file selected'
+  } else if (fileCount.value > 1) {
+    return fileCount.value + ' files selected'
   } else {
-    return "Select files...";
+    return 'Select files...'
   }
-});
+})
 
-const selectImages = async () => {
-  let selection = await open({
+const selectImages = async (): Promise<void> => {
+  const selection = await open({
     multiple: true,
     filters: [{
-      name: "Image",
+      name: 'Image',
       extensions: ['png', 'jpeg', 'jpg']
     }]
-  });
+  })
   if (Array.isArray(selection)) {
-    selectedFiles.value = selection;
+    selectedFiles.value = selection
   } else if (selection === null) {
-    selectedFiles.value = [];
+    selectedFiles.value = []
   } else {
-    selectedFiles.value = [selection];
+    selectedFiles.value = [selection]
   }
 }
 </script>
