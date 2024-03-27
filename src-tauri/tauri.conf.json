@@ -19,6 +19,10 @@
       "dialog": {
         "all": false,
         "open": true
+      },
+      "protocol": {
+        "asset": true,
+        "assetScope": ["$AUDIO", "$DOCUMENT", "$PICTURE", "$VIDEO"]
       }
     },
     "windows": [
@@ -29,7 +33,7 @@
       }
     ],
     "security": {
-      "csp": null
+      "csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost"
     },
     "bundle": {
       "active": true,
