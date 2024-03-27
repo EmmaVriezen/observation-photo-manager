@@ -2,6 +2,8 @@
 import { ref, computed } from 'vue'
 import { open } from '@tauri-apps/api/dialog'
 
+const emit = defineEmits(['setFileSelection'])
+
 const selectedFiles = ref<string[]>([])
 
 const fileCount = computed(() => selectedFiles.value.length)
@@ -26,10 +28,13 @@ const selectImages = async (): Promise<void> => {
   })
   if (Array.isArray(selection)) {
     selectedFiles.value = selection
+    emit('setFileSelection', selection)
   } else if (selection === null) {
     selectedFiles.value = []
+    emit('setFileSelection', [])
   } else {
     selectedFiles.value = [selection]
+    emit('setFileSelection', [selection])
   }
 }
 </script>
