@@ -1,9 +1,13 @@
 <script setup lang="ts">
+import { convertFileSrc } from '@tauri-apps/api/tauri'
 
-const props = defineProps(['path'])
+const props = defineProps({ path: { type: String, required: true } })
+
+const imageUrl = convertFileSrc(props.path)
 
 </script>
 
 <template>
-  {{ props.path }}
+  <p>{{ props.path }}</p>
+  <img :src="imageUrl"/>
 </template>
