@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import FileSelection from './components/FileSelection.vue'
 import FolderSelection from './components/FolderSelection.vue'
-import ImageDisplay from './components/ImageDisplay.vue'
+import ImageCarousel from './components/ImageCarousel.vue'
 import { ref } from 'vue'
 
 const saveDir = ref('')
 const selectedFiles = ref<string[]>([])
+
+const setFileSelection = (files: string[]): void => {
+  selectedFiles.value = files
+}
 
 </script>
 
@@ -14,12 +18,12 @@ const selectedFiles = ref<string[]>([])
     <h1>Observation Photo Manager</h1>
     <FileSelection
       :numberOfFiles="selectedFiles.length"
-      @set-file-selection="(arr) => selectedFiles = arr"/>
+      @set-file-selection="(arr) => setFileSelection(arr)"/>
     <FolderSelection
       :selectedFolder="saveDir"
       @set-folder="(str) => saveDir = str"/>
-    <div v-for="file in selectedFiles" :key="file">
-      <ImageDisplay :path="file"/>
-    </div>
+    <ImageCarousel
+      v-if="selectedFiles.length > 0"
+      :imagePaths="selectedFiles"/>
   </div>
 </template>
