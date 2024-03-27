@@ -1,0 +1,33 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "plugin:vue/vue3-essential",
+        "love"
+    ],
+    "parser": "vue-eslint-parser",
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "extraFileExtensions": [".vue"],
+        "sourceType": "module",
+        "parser": "@typescript-eslint/parser",
+        "project": ["./tsconfig.json"]
+    },
+    "overrides": [{ 
+        "files": [
+            "*.js",
+            "*.jsx",
+            "*.ts",
+            "*.tsx",
+            "*.vue"
+        ]
+    }],
+    "plugins": [
+        "vue",
+        "@stylistic"
+    ],
+    "rules": {
+    }
+}
