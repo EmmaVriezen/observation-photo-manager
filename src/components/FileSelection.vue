@@ -7,34 +7,34 @@ const selectedFiles = ref<String[]>([]);
 const fileCount = computed(() => selectedFiles.value.length);
 
 const fileSelectionButtonLabel = computed(() => {
-    if (fileCount.value === 1) {
-        return fileCount.value + " file selected";
-    } else if (fileCount.value) {
-        return fileCount.value + " files selected";
-    } else {
-        return "Select files...";
-    }
+  if (fileCount.value === 1) {
+    return fileCount.value + " file selected";
+  } else if (fileCount.value) {
+    return fileCount.value + " files selected";
+  } else {
+    return "Select files...";
+  }
 });
 
 const selectImages = async () => {
-    let selection = await open({
-        multiple: true,
-        filters: [{
-            name: "Image",
-            extensions: ['png', 'jpeg', 'jpg']
-        }]
-    });
-    if (Array.isArray(selection)) {
-        selectedFiles.value = selection;
-    } else if (selection === null) {
-        selectedFiles.value = [];
-    } else {
-        selectedFiles.value = [selection];
-    }
+  let selection = await open({
+    multiple: true,
+    filters: [{
+      name: "Image",
+      extensions: ['png', 'jpeg', 'jpg']
+    }]
+  });
+  if (Array.isArray(selection)) {
+    selectedFiles.value = selection;
+  } else if (selection === null) {
+    selectedFiles.value = [];
+  } else {
+    selectedFiles.value = [selection];
+  }
 }
 </script>
 
 <template>
-    <button type="button" @click="selectImages">{{ fileSelectionButtonLabel }}</button>
-    <p>{{ selectedFiles }}</p>
+  <button type="button" @click="selectImages">{{ fileSelectionButtonLabel }}</button>
+  <p>{{ selectedFiles }}</p>
 </template>
