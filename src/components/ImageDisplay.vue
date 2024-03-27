@@ -8,6 +8,8 @@ const imageUrl = convertFileSrc(props.path)
 </script>
 
 <template>
-  <p>{{ props.path }}</p>
-  <img :src="imageUrl"/>
+  <div>
+    <p>{{ props.path }}</p>
+    <img :src="imageUrl" height=400/>
+  </div>
 </template>
