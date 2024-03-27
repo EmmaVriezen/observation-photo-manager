@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import FileSelection from './components/FileSelection.vue'
 import FolderSelection from './components/FolderSelection.vue'
+import { ref } from 'vue'
+
+const saveDir = ref('')
 
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
@@ -10,6 +13,8 @@ import FolderSelection from './components/FolderSelection.vue'
   <div class="container">
     <h1>Observation Photo Manager</h1>
     <FileSelection />
-    <FolderSelection />
+    <FolderSelection @set-folder="(str) => saveDir = str">
+      {{ saveDir === '' ? 'Select folder...' : saveDir }}
+    </FolderSelection>
   </div>
 </template>
