@@ -2,15 +2,15 @@
 import { ref, computed } from "vue";
 import { open } from '@tauri-apps/api/dialog';
 
-const fileSelection = ref<String[]>([]);
+const selectedFiles = ref<String[]>([]);
 
-const count = computed(() => fileSelection.value.length);
+const fileCount = computed(() => selectedFiles.value.length);
 
-const buttonLabel = computed(() => {
-    if (count.value === 1) {
-        return count.value + " file selected";
-    } else if (count.value) {
-        return count.value + " files selected";
+const fileSelectionButtonLabel = computed(() => {
+    if (fileCount.value === 1) {
+        return fileCount.value + " file selected";
+    } else if (fileCount.value) {
+        return fileCount.value + " files selected";
     } else {
         return "Select files...";
     }
@@ -25,16 +25,16 @@ const selectImages = async () => {
         }]
     });
     if (Array.isArray(selection)) {
-        fileSelection.value = selection;
+        selectedFiles.value = selection;
     } else if (selection === null) {
-        fileSelection.value = [];
+        selectedFiles.value = [];
     } else {
-        fileSelection.value = [selection];
+        selectedFiles.value = [selection];
     }
 }
 </script>
 
 <template>
-    <button type="button" @click="selectImages">{{ buttonLabel }}</button>
-    <p>{{ fileSelection }}</p>
+    <button type="button" @click="selectImages">{{ fileSelectionButtonLabel }}</button>
+    <p>{{ selectedFiles }}</p>
 </template>
