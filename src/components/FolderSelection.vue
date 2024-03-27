@@ -1,7 +1,17 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { open } from '@tauri-apps/api/dialog'
 
+const props = defineProps(['selectedFolder'])
 const emit = defineEmits(['setFolder'])
+
+const folderSelectionButtonLabel = computed(() => {
+  if (props.selectedFolder === '') {
+    return 'Select folder...'
+  } else {
+    return props.selectedFolder
+  }
+})
 
 const selectFolder = async (): Promise<void> => {
   const selection = await open({ directory: true, multiple: false })
@@ -17,6 +27,6 @@ const selectFolder = async (): Promise<void> => {
 
 <template>
   <button type="button" @click="selectFolder">
-    <slot></slot>
+    {{ folderSelectionButtonLabel }}
   </button>
 </template>
