@@ -18,6 +18,8 @@ const selectedFiles = ref<string[]>([])
       :selectedFolder="saveDir"
       @set-folder="(str) => saveDir = str">
     </FolderSelection>
-    <p>{{ selectedFiles }}</p>
+    <li v-for="file in selectedFiles" :key="file">
+      {{ file }}
+    </li>
   </div>
 </template>
