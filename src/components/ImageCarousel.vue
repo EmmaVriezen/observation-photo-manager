@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import ImageDisplay from './ImageDisplay.vue'
+import SaveFile from './SaveFile.vue'
 import { ref, watch } from 'vue'
 
-const props = defineProps({ imagePaths: { type: Array<string>, required: true } })
+const props = defineProps({
+  imagePaths: { type: Array<string>, required: true },
+  savePath: { type: String, required: false }
+})
 const index = ref<number>(0)
 
 watch(() => props.imagePaths, () => {
@@ -38,7 +42,8 @@ const goRight = (): void => {
     <ImageDisplay
       v-if=props.imagePaths.length
       :path="props.imagePaths[index]"
-      :key="props.imagePaths[index]"/>
+      :key="props.imagePaths[index]"
+    />
     <button
       type="button"
       :disabled="props.imagePaths.length === 1"
@@ -46,6 +51,11 @@ const goRight = (): void => {
         &gt;
     </button>
   </div>
+  <SaveFile
+    v-if="props.imagePaths.length"
+    :source-path="props.imagePaths[index]"
+    :destination-path="props.savePath"
+  />
 </template>
 
 <style scoped>
