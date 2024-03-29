@@ -4,7 +4,26 @@
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
 fn save_image(source: &str, target: &str) -> String {
-    format!("Source: {} | Target: {}", source, target)
+    use image::io::Reader as Reader;
+
+    let retrieved_image_result = Reader::open(source);
+
+    let retrieved_image = match retrieved_image_result {
+        Ok(file) => file,
+        Err(_) => return "Retrieving image failed.".to_string(),
+    };
+    
+    let decoded_image_result = retrieved_image.decode();
+
+    let decoded_image = match decoded_image_result {
+        Ok(decoded) => decoded,
+        Err(_) => return "Decoding image failed.".to_string(),
+    };
+
+    match decoded_image.save(format!("{target}\\copy.jpg")) {
+        Ok(_) => return "Successfully saved image!".to_string(),
+        Err(_) => return "Saving image failed.".to_string(),
+    };
 }
 
 fn main() {
