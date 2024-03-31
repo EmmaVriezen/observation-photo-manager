@@ -5,13 +5,13 @@ import { ref, watch } from 'vue'
 
 const props = defineProps({
   imagePaths: { type: Array<string>, required: true },
-  savePath: { type: String, required: false }
+  savePath: { type: String, required: true }
 })
 const index = ref<number>(0)
-const xTop = ref<number>(0)
-const yTop = ref<number>(0)
-const xLow = ref<number>(0)
-const yLow = ref<number>(0)
+const xTop = ref<string>('0')
+const yTop = ref<string>('0')
+const xLow = ref<string>('0')
+const yLow = ref<string>('0')
 
 watch(() => props.imagePaths, () => {
   index.value = 0
@@ -67,6 +67,7 @@ const goRight = (): void => {
     v-if="props.imagePaths.length"
     :source-path="props.imagePaths[index]"
     :destination-path="props.savePath"
+    :crop="[xTop, yTop, xLow, yLow]"
   />
 </template>
 
