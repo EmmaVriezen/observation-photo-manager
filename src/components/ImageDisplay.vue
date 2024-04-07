@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import { convertFileSrc } from '@tauri-apps/api/tauri'
 
 const props = defineProps({
@@ -9,20 +9,12 @@ const props = defineProps({
 
 const cropCanvas = ref()
 const image = ref()
-const width = ref()
+const imageLoaded = ref(false)
+const width = ref<string>('0px')
 
 const imageHeight: string = '400px'
 
 const imageUrl = convertFileSrc(props.path)
-
-watch(() => image.value, () => {
-  console.log(image.value)
-  if (image.value !== null && image.value !== undefined) {
-    width.value = image.value.width + 'px'
-  } else {
-    width.value = '0px'
-  }
-})
 
 const drawCrop = (): void => {
   const canvas = cropCanvas.value
@@ -33,14 +25,30 @@ const drawCrop = (): void => {
   ctx.rect(props.crop[0], props.crop[1], props.crop[2], props.crop[3])
   ctx.stroke()
 }
+
+const whenImgLoaded = (): void => {
+  width.value = image.value.width + 'px'
+  imageLoaded.value = true
+}
 </script>
 
 <template>
   <div>
     <button type="button" @click="drawCrop">Show crop</button>
     <div class="canvas-wrapper">
-      <img ref="image" :src="imageUrl" :height="imageHeight"/>
-      <canvas v-if="width !== '0px'" class="crop-canvas" ref="cropCanvas" :width="width" :height="imageHeight"></canvas>
+      <img
+        ref="image"
+        :src="imageUrl"
+        :height="imageHeight"
+        @load="whenImgLoaded"
+      />
+      <canvas
+        v-if="imageLoaded"
+        class="crop-canvas"
+        ref="cropCanvas"
+        :width="width"
+        :height="imageHeight">
+      </canvas>
     </div>
   </div>
 </template>
