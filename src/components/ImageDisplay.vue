@@ -20,7 +20,7 @@ watch(() => image.value, () => {
   if (image.value !== null && image.value !== undefined) {
     width.value = image.value.width + 'px'
   } else {
-    width.value = 0
+    width.value = '0px'
   }
 })
 
@@ -40,7 +40,7 @@ const drawCrop = (): void => {
     <button type="button" @click="drawCrop">Show crop</button>
     <div class="canvas-wrapper">
       <img ref="image" :src="imageUrl" :height="imageHeight"/>
-      <canvas class="crop-canvas" ref="cropCanvas" :width="width" :height="imageHeight"></canvas>
+      <canvas v-if="width !== '0px'" class="crop-canvas" ref="cropCanvas" :width="width" :height="imageHeight"></canvas>
     </div>
   </div>
 </template>
