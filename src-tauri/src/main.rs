@@ -3,7 +3,7 @@
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
-fn save_image(source: &str, target: &str, x1: u32, y1: u32, x2: u32, y2: u32) -> String {
+fn save_image(source: &str, target: &str, x1: f32, y1: f32, x2: f32, y2: f32) -> String {
     use image::io::Reader as Reader;
 
     let retrieved_image_result = Reader::open(source);
@@ -20,7 +20,14 @@ fn save_image(source: &str, target: &str, x1: u32, y1: u32, x2: u32, y2: u32) ->
         Err(_) => return "Decoding image failed.".to_string(),
     };
 
-    let cropped_image = decoded_image.crop_imm(x1, y1, x2, y2);
+    let height = decoded_image.height();
+    let multiplier = height as f32 / 400.0;
+    let x1_scaled = (x1 * multiplier) as u32;
+    let x2_scaled = (x2 * multiplier) as u32;
+    let y1_scaled = (y1 * multiplier) as u32;
+    let y2_scaled = (y2 * multiplier) as u32;
+
+    let cropped_image = decoded_image.crop_imm(x1_scaled, y1_scaled, x2_scaled, y2_scaled);
 
     match cropped_image.save(format!("{target}\\copy.jpg")) {
         Ok(_) => return "Successfully saved image!".to_string(),
