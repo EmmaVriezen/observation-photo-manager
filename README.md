@@ -24,5 +24,8 @@ No more. At least, that is the goal of this project.
 - Saving the crop dimensions and location so they can be applied retrospectively on the original, HD image
 - ... and more? Who knows.
 
+## Update April 10th 2024
+The minimal requirements are met, although very minimally! The next steps are making the app more convenient. E.g., limit the crops to photo dimensions, crop by dragging with the mouse, bulk saving with unique names...
+
 ## Final note
 This is my first real project. Hopefully I will manage to make something that will make my life a little bit easier!
