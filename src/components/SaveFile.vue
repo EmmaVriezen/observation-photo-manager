@@ -7,10 +7,10 @@ const props = defineProps({
   destinationPath: { type: String, required: true },
   crop: { type: Array<string>, required: true }
 })
+
 const successMessage = ref('')
 
 async function save (): Promise<void> {
-  console.log(typeof props.crop[0])
   successMessage.value = await invoke('save_image',
     {
       source: props.sourcePath,
