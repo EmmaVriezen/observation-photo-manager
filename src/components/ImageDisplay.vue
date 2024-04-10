@@ -13,7 +13,6 @@ const imageLoaded = ref(false)
 const width = ref<string>('0px')
 
 const imageHeight: string = '400px'
-
 const imageUrl = convertFileSrc(props.path)
 
 const drawCrop = (): void => {
@@ -40,8 +39,7 @@ const whenImgLoaded = (): void => {
         ref="image"
         :src="imageUrl"
         :height="imageHeight"
-        @load="whenImgLoaded"
-      />
+        @load="whenImgLoaded"/>
       <canvas
         v-if="imageLoaded"
         class="crop-canvas"

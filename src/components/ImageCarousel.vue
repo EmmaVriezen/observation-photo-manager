@@ -7,6 +7,7 @@ const props = defineProps({
   imagePaths: { type: Array<string>, required: true },
   savePath: { type: String, required: true }
 })
+
 const index = ref<number>(0)
 const xTop = ref<string>('0')
 const yTop = ref<string>('0')
@@ -54,8 +55,7 @@ const goRight = (): void => {
       v-if=props.imagePaths.length
       :path="props.imagePaths[index]"
       :key="props.imagePaths[index]"
-      :crop="[xTop, yTop, xLow, yLow]"
-    />
+      :crop="[xTop, yTop, xLow, yLow]"/>
     <button
       type="button"
       :disabled="props.imagePaths.length === 1"
@@ -67,8 +67,7 @@ const goRight = (): void => {
     v-if="props.imagePaths.length"
     :source-path="props.imagePaths[index]"
     :destination-path="props.savePath"
-    :crop="[xTop, yTop, xLow, yLow]"
-  />
+    :crop="[xTop, yTop, xLow, yLow]"/>
 </template>
 
 <style scoped>
