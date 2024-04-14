@@ -5,6 +5,7 @@
 #[tauri::command]
 fn save_image(source: &str, target: &str, x1: f32, y1: f32, x2: f32, y2: f32) -> String {
     use image::io::Reader as Reader;
+    use std::path::Path;
 
     let retrieved_image_result = Reader::open(source);
 
@@ -29,7 +30,9 @@ fn save_image(source: &str, target: &str, x1: f32, y1: f32, x2: f32, y2: f32) ->
 
     let cropped_image = decoded_image.crop_imm(x1_scaled, y1_scaled, x2_scaled, y2_scaled);
 
-    match cropped_image.save(format!("{target}\\copy.jpg")) {
+    let file_title = Path::new(source).file_stem().unwrap().to_str().unwrap();
+
+    match cropped_image.save(format!("{target}\\{file_title}_crop.jpg")) {
         Ok(_) => return "Successfully saved image!".to_string(),
         Err(_) => return "Saving image failed.".to_string(),
     };
