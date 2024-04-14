@@ -44,13 +44,6 @@ const goRight = (): void => {
 
 <template>
   <p>{{ index }}</p>
-  <form>
-    <input placeholder="X top" v-model="xTop"/>
-    <input placeholder="Y top" v-model="yTop"/>
-    <br>
-    <input placeholder="X bottom" v-model="xLow"/>
-    <input placeholder="Y bottom" v-model="yLow"/>
-  </form>
   <div class="carousel">
     <button
       type="button"
