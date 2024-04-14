@@ -3,9 +3,9 @@ import { ref } from 'vue'
 import { convertFileSrc } from '@tauri-apps/api/tauri'
 
 const props = defineProps({
-  path: { type: String, required: true },
-  crop: { type: Array, required: true }
+  path: { type: String, required: true }
 })
+const emit = defineEmits(['setCrop'])
 
 const cropCanvas = ref()
 const image = ref()
@@ -41,8 +41,11 @@ const startDrawing = (event: Event): void => {
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 }
 
-const stopDrawing = (): void => {
+const stopDrawing = (event): void => {
   isDrawing.value = false
+  const width = event.layerX - x.value
+  const height = event.layerY - y.value
+  emit('setCrop', [x.value, y.value, width, height])
 }
 
 const whenImgLoaded = (): void => {

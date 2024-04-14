@@ -18,6 +18,13 @@ watch(() => props.imagePaths, () => {
   index.value = 0
 })
 
+const setCrop = (crop: number[]): void => {
+  xTop.value = (crop[2] > 0 ? crop[0] : crop[0] + crop[2]).toString()
+  yTop.value = (crop[3] > 0 ? crop[1] : crop[1] + crop[3]).toString()
+  xLow.value = (crop[2] > 0 ? crop[2] : -crop[2]).toString()
+  yLow.value = (crop[3] > 0 ? crop[3] : -crop[3]).toString()
+}
+
 const goLeft = (): void => {
   if (index.value > 0) {
     index.value--
@@ -55,7 +62,7 @@ const goRight = (): void => {
       v-if=props.imagePaths.length
       :path="props.imagePaths[index]"
       :key="props.imagePaths[index]"
-      :crop="[xTop, yTop, xLow, yLow]"/>
+      @set-crop="(arr) => setCrop(arr)"/>
     <button
       type="button"
       :disabled="props.imagePaths.length === 1"
