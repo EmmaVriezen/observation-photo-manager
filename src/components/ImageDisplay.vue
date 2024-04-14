@@ -41,7 +41,7 @@ const startDrawing = (event: Event): void => {
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 }
 
-const stopDrawing = (event): void => {
+const stopDrawing = (event: Event): void => {
   isDrawing.value = false
   const width = event.layerX - x.value
   const height = event.layerY - y.value
@@ -56,7 +56,6 @@ const whenImgLoaded = (): void => {
 
 <template>
   <div>
-    <button type="button" @click="drawCrop">Show crop</button>
     <div class="canvas-wrapper">
       <img
         ref="image"
