@@ -16,6 +16,10 @@ const setFileSelection = (files: string[]): void => {
   })
   selectedFiles.value = photos
 }
+
+const setCropped = (index: number): void => {
+  selectedFiles.value[index].cropped = true
+}
 </script>
 
 <template>
@@ -30,6 +34,7 @@ const setFileSelection = (files: string[]): void => {
     <ImageCarousel
       v-if="selectedFiles.length > 0"
       :images="selectedFiles"
-      :savePath="saveDir"/>
+      :savePath="saveDir"
+      @set-cropped="(index) => setCropped(index)"/>
   </div>
 </template>

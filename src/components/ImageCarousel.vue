@@ -8,6 +8,7 @@ const props = defineProps({
   images: { type: Array<Photo>, required: true },
   savePath: { type: String, required: true }
 })
+const emit = defineEmits(['setCropped'])
 
 const index = ref<number>(0)
 const xTop = ref<string>('0')
@@ -24,6 +25,11 @@ const setCrop = (crop: number[]): void => {
   yTop.value = (crop[3] > 0 ? crop[1] : crop[1] + crop[3]).toString()
   xLow.value = (crop[2] > 0 ? crop[2] : -crop[2]).toString()
   yLow.value = (crop[3] > 0 ? crop[3] : -crop[3]).toString()
+}
+
+const setCropped = (): void => {
+  console.log(index.value)
+  emit('setCropped', index.value)
 }
 
 const goLeft = (): void => {
@@ -67,8 +73,10 @@ const goRight = (): void => {
   <SaveFile
     v-if="props.images.length"
     :source-path="props.images[index].file"
+    :cropped="props.images[index].cropped"
     :destination-path="props.savePath"
-    :crop="[xTop, yTop, xLow, yLow]"/>
+    :crop="[xTop, yTop, xLow, yLow]"
+    @set-cropped="setCropped"/>
 </template>
 
 <style scoped>

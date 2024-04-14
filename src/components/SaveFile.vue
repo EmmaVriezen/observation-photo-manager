@@ -4,9 +4,11 @@ import { invoke } from '@tauri-apps/api/tauri'
 
 const props = defineProps({
   sourcePath: { type: String, required: true },
+  cropped: { type: Boolean, required: true },
   destinationPath: { type: String, required: true },
   crop: { type: Array<string>, required: true }
 })
+const emit = defineEmits(['setCropped'])
 
 const successMessage = ref('')
 
@@ -21,10 +23,11 @@ async function save (): Promise<void> {
       y2: parseInt(props.crop[3])
     }
   )
+  emit('setCropped')
 }
 </script>
 
 <template>
-  <button type="button" @click="save">Save</button>
+  <button type="button" @click="save">Save {{ props.cropped ? "&check;" : "" }}</button>
   <p>{{ successMessage }}</p>
 </template>
