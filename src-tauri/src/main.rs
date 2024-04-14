@@ -30,9 +30,18 @@ fn save_image(source: &str, target: &str, x1: f32, y1: f32, x2: f32, y2: f32) ->
 
     let cropped_image = decoded_image.crop_imm(x1_scaled, y1_scaled, x2_scaled, y2_scaled);
 
-    let file_title = Path::new(source).file_stem().unwrap().to_str().unwrap();
+    let file_stem = Path::new(source).file_stem().unwrap().to_str().unwrap();
+    let extension = Path::new(source).extension().unwrap().to_str().unwrap();
 
-    match cropped_image.save(format!("{target}\\{file_title}_crop.jpg")) {
+    let mut i = 0;
+    let mut i_str = i.to_string();
+
+    while Path::new(&format!("{target}\\{file_stem}_{i_str}.{extension}")).exists() {
+        i = i + 1;
+        i_str = i.to_string();
+    }
+
+    match cropped_image.save(format!("{target}\\{file_stem}_{i_str}.{extension}")) {
         Ok(_) => return "Successfully saved image!".to_string(),
         Err(_) => return "Saving image failed.".to_string(),
     };
