@@ -2,13 +2,19 @@
 import FileSelection from './components/FileSelection.vue'
 import FolderSelection from './components/FolderSelection.vue'
 import ImageCarousel from './components/ImageCarousel.vue'
+import { type Photo } from './interfaces/photo.ts'
 import { ref } from 'vue'
 
 const saveDir = ref('')
-const selectedFiles = ref<string[]>([])
+const selectedFiles = ref<Photo[]>([])
 
 const setFileSelection = (files: string[]): void => {
-  selectedFiles.value = files
+  const photos: Photo[] = []
+  files.forEach(file => {
+    const photo = { file, cropped: false }
+    photos.push(photo)
+  })
+  selectedFiles.value = photos
 }
 </script>
 
@@ -23,7 +29,7 @@ const setFileSelection = (files: string[]): void => {
       @set-folder="(str) => saveDir = str"/>
     <ImageCarousel
       v-if="selectedFiles.length > 0"
-      :imagePaths="selectedFiles"
+      :images="selectedFiles"
       :savePath="saveDir"/>
   </div>
 </template>
