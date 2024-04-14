@@ -10,19 +10,39 @@ const props = defineProps({
 const cropCanvas = ref()
 const image = ref()
 const imageLoaded = ref(false)
+const isDrawing = ref(false)
+const x = ref(0)
+const y = ref(0)
 const width = ref<string>('0px')
 
 const imageHeight: string = '400px'
 const imageUrl = convertFileSrc(props.path)
 
-const drawCrop = (): void => {
+const drawCrop = (event: Event): void => {
+  if (isDrawing.value) {
+    const canvas = cropCanvas.value
+    const ctx = canvas.getContext('2d')
+    const width = event.layerX - x.value
+    const height = event.layerY - y.value
+    ctx.lineWidth = 1
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.beginPath()
+    ctx.rect(x.value, y.value, width, height)
+    ctx.stroke()
+  }
+}
+
+const startDrawing = (event: Event): void => {
+  x.value = event.layerX
+  y.value = event.layerY
+  isDrawing.value = true
   const canvas = cropCanvas.value
   const ctx = canvas.getContext('2d')
-  ctx.lineWidth = 1
   ctx.clearRect(0, 0, canvas.width, canvas.height)
-  ctx.beginPath()
-  ctx.rect(props.crop[0], props.crop[1], props.crop[2], props.crop[3])
-  ctx.stroke()
+}
+
+const stopDrawing = (): void => {
+  isDrawing.value = false
 }
 
 const whenImgLoaded = (): void => {
@@ -45,7 +65,10 @@ const whenImgLoaded = (): void => {
         class="crop-canvas"
         ref="cropCanvas"
         :width="width"
-        :height="imageHeight">
+        :height="imageHeight"
+        @mousedown="startDrawing"
+        @mousemove="drawCrop"
+        @mouseup="stopDrawing">
       </canvas>
     </div>
   </div>
